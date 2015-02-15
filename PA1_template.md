@@ -2,7 +2,8 @@
 
 
 ## Loading and preprocessing the data
-First we unzip the file, then load the resultant csv data into a dataframe named data
+First we unzip the file, then load the resultant csv data into a dataframe named 
+data
 
 ```r
   dataLoc <- "activity.zip"
@@ -86,7 +87,8 @@ Lastly, we remove the steps.y column and rename the steps.x column to steps.
 
 ```r
   dataAdded <- merge(data, averageInterval, by = "interval")
-  dataAdded$steps.x[is.na(dataAdded$steps.x)] <- as.integer(dataAdded$steps.y[is.na(dataAdded$steps.x)])
+  dataAdded$steps.x[is.na(dataAdded$steps.x)] <- 
+                        as.integer(dataAdded$steps.y[is.na(dataAdded$steps.x)])
 ```
 Now we are going to create an histogram showing the steps per day and calculate
 the mean and median number of steps per day.
@@ -117,9 +119,11 @@ the date is on a weekend. We then use ddply do create a summary of the number
 of steps
 
 ```r
-  stepsWeekend <- mutate(dataAdded, weekend = ifelse( weekdays(as.Date(date)) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
+  stepsWeekend <- mutate(dataAdded, weekend = ifelse( weekdays(as.Date(date)) 
+                          %in% c("Saturday", "Sunday"), "weekend", "weekday"))
 
-  averageInterval <- ddply(stepsWeekend, .(interval, weekend), summarize,  steps=mean(steps.x))
+  averageInterval <- ddply(stepsWeekend, .(interval, weekend), summarize,  
+                           steps=mean(steps.x))
 ```
 
 We now plot the graphs using lattice
@@ -129,7 +133,8 @@ We now plot the graphs using lattice
   library(lattice) 
 
   xyplot(steps~interval|weekend, averageInterval,
-   xlab="Interval", layout=c(1,2), type = "l", horizontal = FALSE, tick.number = 500)#,xlim = c("0", "500", "1000", "15000", "20000"))
+   xlab="Interval", layout=c(1,2), type = "l", horizontal = FALSE, 
+   tick.number = 500)
 ```
 
 ![](PA1_template_files/figure-html/weekendPlot-1.png) 
